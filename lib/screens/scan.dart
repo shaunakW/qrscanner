@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+import 'info.dart';
+
 class ScanScreen extends StatefulWidget {
   @override
   _ScanScreenState createState() => _ScanScreenState();
@@ -12,8 +14,20 @@ class _ScanScreenState extends State<ScanScreen> {
   QRViewController _controller;
   bool _flash = false;
 
-  void _onScanned(String data) {
-    print(data);
+  void _onQRViewCreated(QRViewController controller) {
+    setState(() {
+      _controller = controller;
+    });
+    controller.scannedDataStream.listen(_onScanned);
+  }
+
+  void _onScanned(String data) async {
+    _controller.pauseCamera();
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => InfoScreen(data)),
+    );
+    _controller.resumeCamera();
   }
 
   @override
@@ -26,12 +40,7 @@ class _ScanScreenState extends State<ScanScreen> {
         children: [
           QRView(
             key: _qrKey,
-            onQRViewCreated: (controller) {
-              setState(() {
-                _controller = controller;
-              });
-              controller.scannedDataStream.distinct().listen(_onScanned);
-            },
+            onQRViewCreated: _onQRViewCreated,
             overlay: QrScannerOverlayShape(
               borderWidth: 5.0,
               borderRadius: 5.0,
