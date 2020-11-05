@@ -38,7 +38,7 @@ class _ScanScreenState extends State<ScanScreen> {
             ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
                 icon: Icon(_flash ? Icons.flash_on : Icons.flash_off),
