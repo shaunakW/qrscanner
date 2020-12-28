@@ -50,7 +50,7 @@ class _ScanScreenState extends State<ScanScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                icon: Icon(_flash ? Icons.flash_on : Icons.flash_off),
+                icon: Icon(_flash ? Icons.flash_on : Icons.flash_off, color: Colors.white),
                 onPressed: _controller != null ? () {
                   _controller.toggleFlash();
                   setState(() {
@@ -59,7 +59,7 @@ class _ScanScreenState extends State<ScanScreen> {
                 } : null,
               ),
               IconButton(
-                icon: Icon(Icons.flip_camera_android),
+                icon: Icon(Icons.flip_camera_android, color: Colors.white),
                 onPressed: _controller?.flipCamera,
               ),
             ],
@@ -67,5 +67,11 @@ class _ScanScreenState extends State<ScanScreen> {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

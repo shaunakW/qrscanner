@@ -11,7 +11,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'QR Scanner',
-      theme: ThemeData.dark(),
+      theme: ThemeData(
+        primaryColor: Colors.blue[800],
+      ),
       home: ScanScreen(),
     );
   }
